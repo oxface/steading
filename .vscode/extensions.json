@@ -1,0 +1,25 @@
+{
+    "recommendations": [
+        // General
+        "editorconfig.editorconfig",
+        "anthropic.claude-code",
+        "eamodio.gitlens",
+
+        // Python (api)
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "kevinrose.vsc-python-indent",
+        "tamasfe.even-better-toml",
+
+        // Web (react/ts/tailwind)
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+
+        // Infra (k3s/WSL2/containers)
+        "ms-vscode-remote.remote-wsl",
+        "ms-azuretools.vscode-docker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "redhat.vscode-yaml"
+    ]
+}

@@ -1,0 +1,55 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		// General editing
+		"editor.formatOnSave": true,
+		"files.eol": "\n",
+		"files.insertFinalNewline": true,
+
+		// Keep search/watchers fast
+		"search.exclude": {
+			"**/node_modules": true,
+			"**/.venv": true,
+			"**/dist": true,
+			"**/__pycache__": true
+		},
+		"files.watcherExclude": {
+			"**/node_modules/**": true,
+			"**/.venv/**": true,
+			"**/dist/**": true,
+			"**/__pycache__/**": true
+		},
+
+		// Python: ruff formats and lints (config lives in each app's pyproject.toml)
+		"[python]": {
+			"editor.defaultFormatter": "charliermarsh.ruff",
+			"editor.codeActionsOnSave": {
+				"source.fixAll.ruff": "explicit",
+				"source.organizeImports.ruff": "explicit"
+			}
+		},
+
+		// Web: prettier formats, eslint lints (config lives in apps/seneschal/web)
+		"[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+		"[typescriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+		"[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+		"[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+		"[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+		"[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+
+		// Tailwind IntelliSense inside shadcn/cva/cn call sites
+		"tailwindCSS.experimental.classRegex": [
+			["cva\\(((?:[^()]|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+			["cn\\(((?:[^()]|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+		],
+
+		// k8s manifests get schema validation (redhat.vscode-yaml)
+		"yaml.schemas": {
+			"kubernetes": "platform/**/*.{yaml,yml}"
+		}
+	}
+}
