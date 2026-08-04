@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/block-py.mjs\"",
+            "shell": "bash",
+            "timeout": 10,
+            "statusMessage": "Checking training-protocol file gate"
+          }
+        ]
+      }
+    ]
+  }
+}

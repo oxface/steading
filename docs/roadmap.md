@@ -10,14 +10,14 @@
 
 Two-layer design, decided July 30, 2026:
 
-1. **Platform layer (steading)** — the k3s cluster itself with shared services: Postgres (+pgvector), Argo CD, OTel/LGTM observability, inference runtime (ollama on host → vLLM in-cluster). Every app rides on this.
+1. **Platform layer (steading)** — the k3s cluster itself with shared services: Postgres (+pgvector), Flux GitOps, Envoy Gateway, OTel + Victoria/Grafana/Tempo observability, inference runtime (ollama on host → vLLM in-cluster). Every app rides on this.
 2. **App layer** — independent products deployed *onto* the platform, each with its own UI:
    - **App #1: seneschal — homelab ops assistant** (build now) — agentic assistant over the cluster: MCP tools for kubectl/Argo/Prometheus/Loki queries, LangGraph orchestration, local-model inference, proposes runbook actions. The infra is both platform and domain, so every slice dogfoods itself.
-   - **App #2: personal assistant** (planned possibility, not built now; likely name: equerry) — separate UI/product installed in the same cluster later (knowledge agent, finance, tutor — TBD).
+   - **App #2: personal assistant** (planned possibility, not built now; likely name: equerry) — separate UI/product installed in the same cluster later. Leading candidate (July 30, 2026): a **research multi-agent system** — exercises subgraphs, parallel agents, and synthesis that seneschal doesn't.
 
 **Expansion-readiness rules** (cheap now, expensive to retrofit):
 - Namespace-per-app; shared services live in platform namespaces.
-- Each app = its own Argo CD Application (app-of-apps pattern from the start).
+- Each app = its own Flux Kustomization (per-app reconciliation from the start).
 - Platform services (Postgres, inference, o11y) exposed as cluster services, never embedded in an app.
 - Auth is per-app for now (FastAPI sessions); if apps multiply, that's the trigger for the BFF/IdP slice.
 
@@ -31,13 +31,13 @@ Vertical slices, each ending in something deployed and working. No time budget �
 | 1 | **Minimal FE by hand** | Vite + React + TS + Tailwind + shadcn + Router + Query; a real page hand-written (layout, list/detail, form); React Compiler theory pass + profiling exercise done |
 | 2 | **Minimal BE** | FastAPI + uv + ruff + SQLAlchemy + Postgres (docker compose); cookie-session auth; FE talks to it |
 | 3 | **k3s cluster** | k3s in WSL2; FE, BE, Postgres deployed via plain manifests; app reachable from Windows host |
-| 4 | **GitOps** | Argo CD manages everything from a git repo; app-of-apps; manual kubectl retired |
-| 5 | **Observability** | OTel SDKs in FE+BE; LGTM stack in-cluster; traces/logs/metrics visible in Grafana |
+| 4 | **GitOps** | Flux bootstrapped (Operator + Web UI); per-app Kustomizations; first third-party workload (OpenWebUI → host ollama) deployed via GitOps; manual kubectl retired |
+| 5 | **Observability** | OTel SDKs in FE+BE; VictoriaMetrics + VictoriaLogs + Grafana + Tempo in-cluster; traces/logs/metrics visible in Grafana |
 | 6 | **First agent** | ollama on host; LangGraph agent in BE with PostgresSaver checkpointing; read-only ops tools (pods, Argo sync status, Prometheus queries); chat UI in FE |
 | 7 | **GPU in cluster** | NVIDIA toolkit in WSL2 + k8s device plugin; vLLM deployment serving the model; agent switched to in-cluster endpoint |
 | 8 | **Evals + cost** | Eval harness for the agent gated in CI; token/cost telemetry as OTel metrics on the Grafana dashboards |
 | 9 | **C# MCP server** | A .NET MCP server (e.g., wrapping cluster ops or a domain service) consumed by the agent; revisit BFF question now that a second backend exists |
-| 10+ | **Open** | DBOS workflows when a business-workflow need appears; write-action runbooks with human-in-the-loop; App #2 personal assistant; watchlist items |
+| 10+ | **Open** | Disaster drills (node drain, PVC loss + restore, sync-break recovery, and the final boss: delete the cluster, rebuild everything from git); Claude Agent SDK vs LangGraph comparison spike; Argo CD comparison spike; DBOS workflows when a business-workflow need appears; write-action runbooks with human-in-the-loop; App #2 (research multi-agent system); watchlist items |
 
 ## GPU-on-k3s note (researched answer)
 
