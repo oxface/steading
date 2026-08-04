@@ -11,6 +11,11 @@ A *learning* project for a Principal .NET engineer deliberately working outside 
 - `docs/training/README.md` — the mastery-gate protocol. Area-specific rules live in `.claude/rules/` and load when you touch matching files.
 - `docs/agent-practices.md` — binding agent-engineering practices (evals-first, structured outputs, HITL for writes, least privilege, cost telemetry). A slice violating them isn't done.
 
+## How the user learns (applies to EVERY area, not just Python)
+
+The user learns *while building* — never send them to external docs to figure out how to do a step; supply what the step needs inline. Every guided step runs the loop (full version in `docs/training/README.md`):
+**Frame** (what we're building, why, and what we're deliberately NOT doing yet + which slice it's deferred to) → **Sample** (patterns, signatures, snippets with blanks — never the complete code for user-owned work) → user **Builds** → you **Review** the actual code → **Quiz** (2–4 free-text why/what-if questions right after review; informative only, never gates rep credit; re-explain shaky answers).
+
 ## Always-binding (safety net — full protocol in rules/training docs)
 
 1. **Never write `.py` files. No exceptions.** All Python (backend AND AI/LangGraph) is hand-written by the user. This applies to *creating* files too, before any rule triggers.
