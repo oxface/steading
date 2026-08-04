@@ -11,7 +11,7 @@ Rule: every `.py` file is hand-written, permanently. This tracker sets the *curr
 5. Understand the async model deeply enough to debug hangs, races, and cancellation.
 
 ## Language core
-- [ ] uv workflow: init, add, lock, sync, run — 0/2
+- [~] uv workflow: init, add, lock, sync, run — 1/2 (guided, 2026-08-05: api scaffold — `init --app`, dep groups, `uv run`; learned editor-vs-runtime import resolution)
 - [ ] modules, packages, imports, `__init__.py` — 0/2
 - [ ] typing: modern built-ins, `X | None`, type aliases — 0/2
 - [ ] typing: `TypeVar`/generics, `Protocol` (structural typing) — 0/2
