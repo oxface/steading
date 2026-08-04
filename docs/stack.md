@@ -7,14 +7,14 @@ Living document. Decided July 30, 2026 from a five-area trend scan plus follow-u
 - **Tailwind v4 + shadcn/ui** — the assumed 2026 UI layer; fills the biggest personal gap.
 - **TanStack Router + TanStack Query**. State rules: server state → Query; URL-shareable state → Router search params; true client state (drafts, wizard steps) → **Zustand** (persist middleware where refresh-survival is needed). Never copy server data into Zustand.
 - **React Compiler ON** from day one. Mitigation for legacy-world literacy: one deliberate theory pass on the re-render model (referential equality, why `useMemo`/`useCallback` existed) + one profiling exercise with React DevTools before enabling.
-- **Lint/format: ESLint + Prettier** (+ `prettier-plugin-tailwindcss`), decided over Biome because React Compiler's correctness rules ship as ESLint plugins (`eslint-plugin-react-compiler`, `eslint-plugin-react-hooks`) — they're the tutor for hand-learning the Rules of React. Biome stays a watchlist swap-experiment. Config + devDeps live per-app; only the VS Code extensions are workspace-level.
+- **Lint/format: ESLint + Prettier** (+ `prettier-plugin-tailwindcss`). Reason (updated July 30, 2026): the React hooks/Compiler diagnostics — the tutor for hand-learning the Rules of React — are most mature in ESLint proper; oxlint's native compiler rule is experimental and its jsPlugins route runs the JS plugin anyway, and at our repo size Rust-lint speed buys nothing. Biome and an oxlint hybrid (oxlint bulk + ESLint for plugin rules) stay watchlist swap-experiments for when the codebase is big enough to feel lint time. Config + devDeps live per-app; only the VS Code extensions are workspace-level.
 - **TanStack Start: deferred, not rejected.** It layers incrementally on Router; adopt as its own slice if/when SSR or a TS BFF is wanted.
 - **Explicitly avoiding Next.js** (Vercel prioritization, CVE-2025-29927 history, opaque client/server split).
 - **pnpm** as package manager (strict node_modules catches phantom deps; workspaces if apps multiply).
 - **Testing**: Vitest + React Testing Library once real logic appears (not day one); Playwright as a later slice. Forms library decided at the first real form.
 
 ## Backend
-- **Python: FastAPI + Pydantic + SQLAlchemy, uv + ruff** toolchain. Primary self-education backend. Python 3.13.
+- **Python: FastAPI + Pydantic + SQLAlchemy, uv + ruff** toolchain. Primary self-education backend. Python 3.14 (uv-managed; bumped from 3.13 at scaffold time, July 2026).
 - **Async throughout**: async FastAPI + async SQLAlchemy, driver = **psycopg3** (first-class SQLAlchemy 2.0 async, one driver for sync+async; asyncpg is a perf-niche we don't need).
 - **Postgres-first everywhere** (+ pgvector when retrieval arrives). No Mongo/MERN. **alembic** from the first real table.
 - **Testing**: pytest + httpx `AsyncClient` with dependency overrides.
@@ -51,4 +51,4 @@ Living document. Decided July 30, 2026 from a five-area trend scan plus follow-u
 - **Early third-party workloads**: deploy existing apps (e.g., OpenWebUI → ollama) as soon as GitOps works — real targets for o11y and disaster drills, and the cluster becomes useful before seneschal matures.
 
 ## Watchlist (one deliberate project each, no bets)
-Local-first sync engines (Zero/ElectricSQL) · DuckDB (two evenings) · Go for reading infra source · Wasm component in C# · TanStack Start · Argo CD comparison spike · ty at 1.0 · eBPF/OBI auto-instrumentation.
+Local-first sync engines (Zero/ElectricSQL) · DuckDB (two evenings) · Go for reading infra source · Wasm component in C# · TanStack Start · Argo CD comparison spike · ty at 1.0 · eBPF/OBI auto-instrumentation · Granian swap-spike (drop-in ASGI server in Rust — swap into the k8s deploy and measure with own o11y; server choice: uvicorn until profiling says otherwise).

@@ -24,6 +24,9 @@
 			"**/__pycache__/**": true
 		},
 
+		// Python: interpreter = the api project's uv-managed venv (revisit as multi-root when a 2nd Python app appears)
+		"python.defaultInterpreterPath": "${workspaceFolder}/apps/seneschal/api/.venv/Scripts/python.exe",
+
 		// Python: ruff formats and lints (config lives in each app's pyproject.toml)
 		"[python]": {
 			"editor.defaultFormatter": "charliermarsh.ruff",
