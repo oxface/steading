@@ -1,0 +1,15 @@
+# Pre-commit formatting gate. Format-on-save does the daily work; this catches
+# anything edited outside the editor. stage_fixed re-adds files the formatter changed.
+pre-commit:
+  parallel: true
+  commands:
+    ruff-format:
+      root: apps/seneschal/api/
+      glob: '*.py'
+      run: uv run ruff format {staged_files}
+      stage_fixed: true
+    prettier:
+      root: apps/seneschal/web/
+      glob: '*.{ts,tsx,css,json,html}'
+      run: pnpm exec prettier --write {staged_files}
+      stage_fixed: true
