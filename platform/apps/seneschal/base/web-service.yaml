@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: seneschal
+spec:
+  selector:
+    app.kubernetes.io/name: seneschal-web
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http

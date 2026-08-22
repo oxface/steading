@@ -60,6 +60,8 @@ Stages are ordered learning and product increments, not deadlines. Each ends wit
 
 Stage 2 still includes a visible Kubernetes learning rep: owned manifests are written and rendered directly, then their reconciliation and status are inspected through Flux and Kubernetes. Workload resources are not manually applied first. The only imperative exceptions are substrate bootstrap and break-glass recovery; this prevents a temporary deployment path from becoming a competing operating model. Likewise, local coding harness experiments are optional developer tooling and must not delay this sequence or become part of Seneschal's runtime architecture.
 
+After Seneschal's initial Stage 3 deployment is stable, use its two API replicas for bounded learning exercises in Service load distribution and a native blue-green rollout with two Deployments and an explicit Service-selector cutover. These are follow-up experiments, not requirements for the first deployment and not a reason to introduce a rollout controller yet.
+
 ## Expansion rules
 
 - Namespace per app; shared cluster services live in platform namespaces.

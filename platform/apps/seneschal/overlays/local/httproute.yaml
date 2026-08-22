@@ -1,0 +1,20 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: seneschal
+  namespace: seneschal
+spec:
+  parentRefs:
+    - name: public
+      namespace: networking
+      sectionName: http
+  hostnames:
+    - steading-cluster.mshome.net
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: web
+          port: 8080
