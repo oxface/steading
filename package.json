@@ -1,0 +1,17 @@
+{
+  "name": "steading-repo",
+  "private": true,
+  "packageManager": "pnpm@11.22.0",
+  "scripts": {
+    "check": "pnpm check:api && pnpm check:web && pnpm check:apphost",
+    "check:api": "uv run --directory apps/seneschal/api ruff check . && uv run --directory apps/seneschal/api ruff format --check . && uv run --directory apps/seneschal/api pyright",
+    "check:web": "pnpm --dir apps/seneschal/web lint && pnpm --dir apps/seneschal/web exec prettier --check . && pnpm --dir apps/seneschal/web build",
+    "check:apphost": "npm --prefix aspire-apphost run build",
+    "dev": "npm --prefix aspire-apphost run dev",
+    "dev:api": "uv run --directory apps/seneschal/api fastapi dev",
+    "dev:web": "pnpm --dir apps/seneschal/web dev",
+    "images:build": "pnpm images:build:api && pnpm images:build:web",
+    "images:build:api": "podman build --tag seneschal-api:local apps/seneschal/api",
+    "images:build:web": "podman build --tag seneschal-web:local apps/seneschal/web"
+  }
+}

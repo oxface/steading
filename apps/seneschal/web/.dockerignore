@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+
+.env
+.env.*
+
+.git/
+.gitignore
+AGENTS.md
+README.md

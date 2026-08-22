@@ -8,7 +8,7 @@ The mastery-gate system: each area has one doc that is both the curriculum and t
 
 ## The guided-rep loop (how every guided step runs)
 
-1. **Frame** — what this step builds and why it matters; explicitly name what we are *deliberately not doing yet* and which slice it's deferred to ("no routers yet — those arrive in slice 2 with real resources").
+1. **Frame** — what this step builds and why it matters; explicitly name what we are *deliberately not doing yet* and which delivery stage it belongs to ("no observability query tools yet — those arrive after the read-only cluster investigation works").
 2. **Sample** — pattern-level guidance so no external docs are needed: the imports, signatures, decorator/structure shapes, and small snippets with blanks. Never the complete finished code for user-owned work — the gap between the sample and the working result is where the learning lives.
 3. **Build** — the user implements (and personally runs any CLI).
 4. **Review** — agent reviews the actual code: idiom, correctness, what a senior reviewer would flag.
@@ -16,11 +16,11 @@ The mastery-gate system: each area has one doc that is both the curriculum and t
 
 The learning happens *while building* — the agent supplies whatever reference material the step needs inline; the user should never have to leave the conversation to look up how to do the step.
 - Reps must be **distinct contexts** — repeating the identical exercise doesn't count.
-- **Plan-ahead partitioning**: at the start of each slice, the agent scans the slice plan against these trackers and pre-assigns non-graduated concepts to the user. Mid-generation stop is the fallback if something unplanned surfaces.
+- **Plan-ahead partitioning**: at the start of each delivery stage, the agent scans the stage plan against these trackers and pre-assigns non-graduated concepts to the user. Mid-generation stop is the fallback if something unplanned surfaces.
 - **Tracker updates only with user sign-off**, proposed by the agent at session end ("you implemented X cold — graduate it?"). Counts are never updated silently.
 - Notation: `- [ ] concept — 0/2` → `- [~] concept — 1/2 (context note)` → `- [x] concept — graduated YYYY-MM-DD`.
 
-## Area rules (also in CLAUDE.md)
+## Area rules (also in the root and nested `AGENTS.md` files)
 
 | Area | Rule |
 |------|------|

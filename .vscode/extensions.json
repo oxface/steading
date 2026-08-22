@@ -2,7 +2,7 @@
     "recommendations": [
         // General
         "editorconfig.editorconfig",
-        "anthropic.claude-code",
+        "openai.chatgpt",
         "eamodio.gitlens",
 
         // Python (api)
@@ -16,8 +16,7 @@
         "esbenp.prettier-vscode",
         "bradlc.vscode-tailwindcss",
 
-        // Infra (k3s/WSL2/containers)
-        "ms-vscode-remote.remote-wsl",
+        // Infra (Hyper-V/k3s/containers)
         "ms-azuretools.vscode-docker",
         "ms-kubernetes-tools.vscode-kubernetes-tools",
         "redhat.vscode-yaml"

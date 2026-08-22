@@ -11,11 +11,12 @@ Rule: same as Python — it's `.py`, so every line is hand-written. Curriculum n
 5. Reason about agent security (lethal trifecta, least privilege, sandboxing) at design-review level.
 
 ## Foundations (no framework)
-- [ ] ollama: pull/run models, API, model selection for 16GB — 0/2
+- [ ] ollama on Windows: pull/run models, API, capability checks, VM/network reachability — 0/2
 - [ ] chat completions by hand: system prompts, streaming, temperature — 0/2
 - [ ] tool calling by hand: define tools, run the call loop, feed results back — 0/3
 - [ ] structured output: JSON schema / Pydantic-validated responses — 0/2
 - [ ] context engineering: system prompt design, context budget, message pruning — 0/2
+- [ ] provider adapter: Ollama first, direct OpenAI/Azure OpenAI without domain coupling — 0/2
 
 ## LangGraph
 - [ ] StateGraph: state schema, nodes, edges — 0/2
@@ -25,12 +26,14 @@ Rule: same as Python — it's `.py`, so every line is hand-written. Curriculum n
 - [ ] human-in-the-loop interrupts (approval gate for write actions) — 0/2
 - [ ] subgraphs / multi-agent composition — 0/2
 - [ ] `create_agent` (langchain 1.x) AFTER hand-built equivalents — compare to your own loop — 0/1
-- [ ] Claude Agent SDK comparison spike: same assistant on SDK harness vs LangGraph, write-up — 0/1
 
 ## MCP
 - [ ] consume an MCP server from the agent — 0/2
-- [ ] build an MCP server in Python (cluster read-tools) — 0/2
-- [ ] build the C# MCP server (slice 9; .NET is day-job skill, 1 rep) — 0/1
+- [ ] design typed, bounded MCP tool contracts for investigation questions — 0/2
+- [ ] build `seneschal-tools` in Python with read-only identity, redaction, audit, and output limits — 0/2
+- [ ] threat-model the API/MCP credential boundary — 0/2
+- [ ] build a separate approval-gated action server only if a real use case appears — 0/1
+- [ ] build a C# MCP integration only when a real .NET-shaped boundary appears — 0/1
 
 ## Quality & safety
 - [ ] evals: build a small eval set for seneschal, run it — 0/3

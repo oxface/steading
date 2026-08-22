@@ -1,0 +1,19 @@
+{
+  "description": "Thin Codex adapter for portable Steading agent hooks.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "^(apply_patch|Edit|Write)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/.agents/hooks/block-python-write.mjs\"",
+            "commandWindows": "powershell -NoProfile -Command \"node (Join-Path (git rev-parse --show-toplevel) '.agents/hooks/block-python-write.mjs')\"",
+            "timeout": 10,
+            "statusMessage": "Checking the Python learning boundary"
+          }
+        ]
+      }
+    ]
+  }
+}

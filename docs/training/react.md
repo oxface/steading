@@ -25,7 +25,7 @@ Rule: collaborative area with mastery gate — non-graduated concepts are user-i
 - [ ] error boundaries + Suspense basics — 0/2
 - [ ] React 19 features: `use()`, transitions, `useOptimistic` — 0/2
 - [ ] composition patterns: compound components, controlled vs uncontrolled — 0/2
-- [ ] THEORY: re-render model, referential equality, why `useMemo`/`memo` existed pre-Compiler — 0/1
+- [x] THEORY: re-render model, referential equality, why `useMemo`/`memo` existed pre-Compiler — done 2026-08-05
 - [ ] React DevTools profiling session — 0/2
 - [ ] React Compiler: read + fix an `eslint-plugin-react-compiler` violation — 0/2
 
@@ -39,7 +39,7 @@ Rule: collaborative area with mastery gate — non-graduated concepts are user-i
 - [ ] loaders + preloading — 0/2
 
 ## TanStack Query
-- [ ] `useQuery`: key design, staleTime, enabled — 0/3
+- [~] `useQuery`: key design, staleTime, enabled — 1/3 (guided, 2026-08-21: API health — runtime response validation, query key, staleTime, retry, and focus refetch policy)
 - [ ] mutations + cache invalidation — 0/2
 - [ ] optimistic updates — 0/2
 - [ ] pagination or infinite query — 0/2
@@ -48,7 +48,7 @@ Rule: collaborative area with mastery gate — non-graduated concepts are user-i
 - [ ] Zustand: store, selectors, persist middleware — 0/2
 
 ## Styling & platform (Tailwind before shadcn — one raw-Tailwind layout first)
-- [ ] Tailwind: layout by hand (flex/grid page) — 0/3
+- [~] Tailwind: layout by hand (flex/grid page) — 1/3 (guided, 2026-08-05: app shell — flex column/row nesting, min-height:auto overflow bug, justify-between vs flex-1)
 - [ ] Tailwind: responsive + dark-mode variants — 0/2
 - [ ] Tailwind v4 `@theme` customization — 0/2
 - [ ] shadcn/ui: add, restyle, extend a component; cva variants — 0/2

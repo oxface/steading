@@ -220,6 +220,7 @@ __marimo__/
 # --- steading additions ---
 # Node / frontend
 node_modules/
+.pnpm-store/
 dist/
 .vite/
 *.tsbuildinfo
@@ -238,5 +239,5 @@ dist/
 .DS_Store
 Thumbs.db
 
-# Claude local settings
-.claude/settings.local.json
+# Local agent state and logs (repository guidance belongs in AGENTS.md)
+.codex-log/
