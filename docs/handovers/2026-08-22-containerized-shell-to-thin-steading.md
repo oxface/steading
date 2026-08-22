@@ -4,7 +4,7 @@ Date: August 22, 2026
 
 ## Direction
 
-Seneschal remains the product and Steading its first installation and learning environment. Delivery stages 0 and 1 are complete. The next objective is Stage 2: create the smallest controlled Hyper-V/k3s environment and deploy the existing shell manually exactly once before Flux becomes authoritative.
+Seneschal remains the product and Steading its first installation and learning environment. Delivery stages 0 and 1 are complete. Stage 2 now establishes the smallest controlled Hyper-V/k3s environment and makes Flux authoritative before application workloads are deployed.
 
 ## Completed local shell
 
@@ -41,30 +41,35 @@ Seneschal remains the product and Steading its first installation and learning e
 - VM DNS and outbound HTTPS were verified.
 - Single-node k3s `v1.36.3+k3s1` is installed; the node is ready and CoreDNS, metrics-server, local-path provisioning, ServiceLB, and Traefik are healthy.
 - Windows-to-API access was proven once, including the hostname TLS SAN, then the copied `system:admin` kubeconfig was removed from Windows.
-- The unrestricted kubeconfig remains root-only on the VM. SSH is reserved for bootstrap and break-glass administration; after Flux bootstrap, Git becomes the routine write path.
+- The unrestricted kubeconfig remains root-only on the VM. SSH is reserved for bootstrap and break-glass administration; Git is now the routine write path.
+- Traefik's Gateway API provider is enabled and its `GatewayClass` is accepted.
+- Flux `v2.9.4` is bootstrapped from `platform/clusters/local` with healthy controllers and a read-only GitHub deploy key.
+- The local networking Namespace, Gateway, Kustomize unit, and Flux reconciliation object are committed. Their live reconciliation is the next verification point.
+- `platform/bootstrap/local` captures the proven clean-VM path with pinned k3s and Flux versions, staged scripts, interactive credentials, and an end-to-end verifier.
 - These are completed operational steps, not tracker count changes; the guided-rep review and explicit sign-off still apply.
 
-## Immediate Stage 2 guided rep
+## Immediate next increment
 
-Enable and verify Gateway API support in the bundled Traefik installation. The rep should establish:
+Verify the networking reconciliation, then deliver Seneschal through GitHub Actions, GHCR, and Flux. The increment should establish:
 
-1. The distinction between installing Gateway API CRDs and enabling a controller's Gateway provider.
-2. Which Traefik Helm configuration k3s persists across restarts and upgrades.
-3. How to prove the controller advertises and accepts the intended Gateway API resources before deploying Seneschal.
+1. The distinction between the bootstrap `flux-system` reconciliation and the independently reconciled `networking` unit.
+2. The image boundary: CI publishes immutable images; Flux deploys references to them.
+3. Namespace, Deployment, Service, and HTTPRoute behavior without giving Windows a cluster-admin kubeconfig.
 
-Run cluster administration through `ssh steading` and root-local `sudo k3s kubectl`; do not recreate or export an administrator kubeconfig to Windows. The manual Seneschal deployment still happens exactly once for learning, then Flux replaces imperative application changes.
+Run diagnostics through `ssh steading` and root-local `sudo k3s kubectl`; do not recreate or export an administrator kubeconfig to Windows. Change Flux-owned resources only through Git.
 
 ## Stage 2 sequence
 
 1. Completed: create, size, and validate the Generation 2 Ubuntu VM.
 2. Completed: accept the managed Hyper-V Default Switch behind a stable hostname; defer custom NAT unless Ollama reachability proves the trigger.
 3. Completed: install healthy single-node k3s and keep cluster-admin credentials root-local.
-4. Enable and verify k3s-bundled Traefik Gateway API support.
-5. Hand-write and manually apply Seneschal namespace, Deployments, Services, Gateway, and HTTPRoutes exactly once through SSH-local administration.
-6. Prove browser → Gateway → web → API health and practice `kubectl describe`, logs, events, and exec while the topology is still small.
-7. Move immediately to Stage 3: image publishing and Flux reconciliation. Do not preserve manual apply as a parallel delivery path.
-8. Verify the controlled VM → Windows Ollama path before OpenWebUI depends on it; introduce custom NAT only if the Default Switch cannot provide a stable, appropriately scoped endpoint.
+4. Completed: enable and verify k3s-bundled Traefik Gateway API support.
+5. Completed: bootstrap healthy Flux controllers and make `platform/clusters/local` authoritative.
+6. Verify the Flux-managed networking Namespace and Gateway.
+7. Publish Seneschal images to GHCR and add its Namespace, Deployments, Services, and HTTPRoute through Flux.
+8. Prove browser → Gateway → web → API health and practice `kubectl describe`, logs, events, and exec while the topology is still small.
+9. Verify the controlled VM → Windows Ollama path before OpenWebUI depends on it; introduce custom NAT only if the Default Switch cannot provide a stable, appropriately scoped endpoint.
 
 ## Still deferred
 
-Database, authentication, LangGraph, MCP, Ollama integration in Seneschal, OpenWebUI, Flux, SOPS, and the observability stack remain deferred until their roadmap stages or triggers.
+Database, authentication, LangGraph, MCP, Ollama integration in Seneschal, OpenWebUI, SOPS, and the observability stack remain deferred until their roadmap stages or triggers.
