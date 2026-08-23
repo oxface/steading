@@ -18,21 +18,21 @@ Rule: collaborative area with mastery gate — agent may draft manifests/config 
 
 ## Hyper-V and k3s / Kubernetes core
 - [ ] create/start/stop the Ubuntu Hyper-V VM; size CPU, RAM, disk, and dynamic-memory settings — 0/2
-- [ ] configure and explain the managed Hyper-V NAT endpoint; verify VM ↔ Windows Ollama connectivity — 0/2
+- [~] configure and explain the managed Hyper-V NAT endpoint; verify VM ↔ Windows Ollama connectivity — 1/2 (guided, 2026-08-23: resolved the Windows host from the VM, verified the Hyper-V gateway path, and completed OpenWebUI inference through Windows-hosted Ollama)
 - [ ] k3s install in the Ubuntu VM; root-local kubeconfig and SSH administration — 0/2
 - [~] Deployment + Service YAML by hand — 1/3 (guided, 2026-08-23: two-replica Seneschal API/web workloads, named Service ports, probes, selectors, and Flux-observed rollout)
 - [~] enable k3s-bundled Traefik Gateway API support; Gateway + HTTPRoute by hand — 1/2 (guided, 2026-08-23: Traefik Gateway API provider, cross-namespace route attachment, hostname matching, and Service backend resolution)
 - [ ] ConfigMaps & Secrets — 0/2
 - [~] namespaces, resource requests/limits — 1/2 (guided, 2026-08-23: Seneschal namespace with Gateway access label and bounded API/web container resources)
-- [ ] PersistentVolumeClaim (postgres storage) — 0/2
+- [~] PersistentVolumeClaim lifecycle and access modes — 1/2 (guided, 2026-08-23: OpenWebUI `ReadWriteOnce` claim on `local-path`, external Helm claim ownership, and Flux prune/cascading Namespace deletion implications)
 - [ ] kubectl debugging: describe, logs, exec, events — 0/3
-- [ ] helm: install a chart, values files, upgrade — 0/2
+- [~] helm: install a chart, values files, upgrade — 1/2 (guided, 2026-08-23: pinned OpenWebUI chart, reviewed values, disabled bundled dependencies, supplied resources and probes, and observed installation through Flux)
 
 ## GitOps (Flux)
 - [~] upstream Flux bootstrap and CLI reconciliation — 1/2 (guided, 2026-08-23: GitHub bootstrap into single-node k3s, controller readiness, Git sync, and first application reconciliation)
 - [~] GitRepository + Kustomization CRs, per-app reconciliation — 1/2 (guided, 2026-08-23: cluster-root source, networking dependency, independent Seneschal reconciliation, wait, retry, and prune semantics)
 - [~] Kustomize: base + overlays for own manifests — 1/2 (guided, 2026-08-23: reusable Seneschal base, local HTTPRoute overlay, and explicit local-cluster composition root)
-- [ ] HelmRelease for third-party charts via Flux — 0/2
+- [~] HelmRelease for third-party charts via Flux — 1/2 (guided, 2026-08-23: separate HelmRepository and HelmRelease resources, pinned chart version, remediation, readiness, and independent per-app reconciliation)
 - [ ] SOPS + age: encrypt, reconcile, back up and restore the decryption key — 0/2
 - [ ] drift, suspend/resume, rollback via git revert — 0/2
 - [ ] flux CLI diagnostics (`flux get/logs/events/trace`) — 0/2
@@ -40,8 +40,8 @@ Rule: collaborative area with mastery gate — agent may draft manifests/config 
 
 ## First useful workload
 - [ ] deploy Postgres with persistence and backup intent — 0/2
-- [ ] deploy OpenWebUI through Flux and connect it to Windows-hosted Ollama — 0/2
-- [ ] expose OpenWebUI through Gateway/HTTPRoute without exposing Ollama broadly — 0/2
+- [~] deploy OpenWebUI through Flux and connect it to Windows-hosted Ollama — 1/2 (guided, 2026-08-23: StatefulSet-based chart, persistent storage, automatic Git reconciliation, model discovery, and successful inference)
+- [~] expose OpenWebUI through Gateway/HTTPRoute without exposing Ollama broadly — 1/2 (guided, 2026-08-23: local hostname routing through the shared Gateway to a ClusterIP Service while Ollama remained reachable only from the VM network)
 
 ## Observability
 - [ ] OTel SDK in FastAPI: traces, metrics, logs (the .py is user-written anyway) — 0/2
