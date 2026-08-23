@@ -9,7 +9,7 @@ spec:
     - name: http
       protocol: HTTP
       port: 8000
-      hostname: steading-cluster.mshome.net
+      hostname: "*.steading.test"
       allowedRoutes:
         namespaces:
           from: Selector

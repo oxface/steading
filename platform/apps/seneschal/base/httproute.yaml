@@ -4,12 +4,6 @@ metadata:
   name: seneschal
   namespace: seneschal
 spec:
-  parentRefs:
-    - name: public
-      namespace: networking
-      sectionName: http
-  hostnames:
-    - steading-cluster.mshome.net
   rules:
     - matches:
         - path:

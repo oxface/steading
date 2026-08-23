@@ -1,0 +1,93 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: open-webui
+  namespace: open-webui
+spec:
+  interval: 30m
+  timeout: 10m
+
+  chart:
+    spec:
+      chart: open-webui
+      version: "16.0.0"
+      sourceRef:
+        kind: HelmRepository
+        name: open-webui
+      interval: 1h
+
+  install:
+    remediation:
+      retries: 3
+
+  values:
+    fullnameOverride: open-webui
+    replicaCount: 1
+
+    workload:
+      kind: StatefulSet
+
+    ollama:
+      enabled: false
+    ollamaUrls:
+      - http://desktop-re23nd1.mshome.net:11434
+
+    pipelines:
+      enabled: false
+    tika:
+      enabled: false
+    terminals:
+      enabled: false
+
+    websocket:
+      enabled: true
+      manager: ""
+      redis:
+        enabled: false
+
+    enableOpenaiApi: false
+
+    persistence:
+      enabled: true
+      existingClaim: open-webui
+
+    service:
+      type: ClusterIP
+      port: 80
+
+    ingress:
+      enabled: false
+    route:
+      enabled: false
+
+    startupProbe:
+      httpGet:
+        path: /health
+        port: http
+      periodSeconds: 5
+      timeoutSeconds: 2
+      failureThreshold: 24
+
+    readinessProbe:
+      httpGet:
+        path: /health/db
+        port: http
+      periodSeconds: 5
+      timeoutSeconds: 2
+      failureThreshold: 3
+
+    livenessProbe:
+      httpGet:
+        path: /health
+        port: http
+      periodSeconds: 10
+      timeoutSeconds: 2
+      failureThreshold: 3
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 512Mi
+      limits:
+        cpu: "1"
+        memory: 2Gi

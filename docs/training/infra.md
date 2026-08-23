@@ -20,18 +20,18 @@ Rule: collaborative area with mastery gate — agent may draft manifests/config 
 - [ ] create/start/stop the Ubuntu Hyper-V VM; size CPU, RAM, disk, and dynamic-memory settings — 0/2
 - [ ] configure and explain the managed Hyper-V NAT endpoint; verify VM ↔ Windows Ollama connectivity — 0/2
 - [ ] k3s install in the Ubuntu VM; root-local kubeconfig and SSH administration — 0/2
-- [ ] Deployment + Service YAML by hand — 0/3
-- [ ] enable k3s-bundled Traefik Gateway API support; Gateway + HTTPRoute by hand — 0/2
+- [~] Deployment + Service YAML by hand — 1/3 (guided, 2026-08-23: two-replica Seneschal API/web workloads, named Service ports, probes, selectors, and Flux-observed rollout)
+- [~] enable k3s-bundled Traefik Gateway API support; Gateway + HTTPRoute by hand — 1/2 (guided, 2026-08-23: Traefik Gateway API provider, cross-namespace route attachment, hostname matching, and Service backend resolution)
 - [ ] ConfigMaps & Secrets — 0/2
-- [ ] namespaces, resource requests/limits — 0/2
+- [~] namespaces, resource requests/limits — 1/2 (guided, 2026-08-23: Seneschal namespace with Gateway access label and bounded API/web container resources)
 - [ ] PersistentVolumeClaim (postgres storage) — 0/2
 - [ ] kubectl debugging: describe, logs, exec, events — 0/3
 - [ ] helm: install a chart, values files, upgrade — 0/2
 
 ## GitOps (Flux)
-- [ ] upstream Flux bootstrap and CLI reconciliation — 0/2
-- [ ] GitRepository + Kustomization CRs, per-app reconciliation — 0/2
-- [ ] Kustomize: base + overlays for own manifests — 0/2
+- [~] upstream Flux bootstrap and CLI reconciliation — 1/2 (guided, 2026-08-23: GitHub bootstrap into single-node k3s, controller readiness, Git sync, and first application reconciliation)
+- [~] GitRepository + Kustomization CRs, per-app reconciliation — 1/2 (guided, 2026-08-23: cluster-root source, networking dependency, independent Seneschal reconciliation, wait, retry, and prune semantics)
+- [~] Kustomize: base + overlays for own manifests — 1/2 (guided, 2026-08-23: reusable Seneschal base, local HTTPRoute overlay, and explicit local-cluster composition root)
 - [ ] HelmRelease for third-party charts via Flux — 0/2
 - [ ] SOPS + age: encrypt, reconcile, back up and restore the decryption key — 0/2
 - [ ] drift, suspend/resume, rollback via git revert — 0/2
