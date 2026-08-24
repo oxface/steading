@@ -7,7 +7,8 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app.kubernetes.io/name: seneschal-api
+      app.kubernetes.io/component: api
+      deployment-slot: blue
   template:
     metadata:
       labels:
