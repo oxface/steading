@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api
+  name: api-green
   namespace: seneschal
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app.kubernetes.io/name: seneschal-api
-      deployment-slot: blue
+      app.kubernetes.io/name: seneschal-api-green
+      deployment-slot: green
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: seneschal-api
+        app.kubernetes.io/name: seneschal-api-green
         app.kubernetes.io/component: api
-        deployment-slot: blue
+        deployment-slot: green
     spec:
       containers:
         - name: api
