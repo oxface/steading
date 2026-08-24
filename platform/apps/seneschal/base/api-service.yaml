@@ -5,7 +5,8 @@ metadata:
   namespace: seneschal
 spec:
   selector:
-    app.kubernetes.io/name: seneschal-api
+    app.kubernetes.io/component: api
+    deployment-slot: blue
   ports:
     - name: http
       port: 8000

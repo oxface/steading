@@ -8,7 +8,6 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: seneschal-api
-      deployment-slot: blue
   template:
     metadata:
       labels:
