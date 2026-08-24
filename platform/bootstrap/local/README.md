@@ -7,9 +7,14 @@ reconciled from Git.
 
 ## Preconditions
 
-- A clean Ubuntu VM with outbound HTTPS and working DNS.
+- A clean Ubuntu VM attached to the `Steading` Hyper-V internal switch, with
+  `192.168.50.10/24`, gateway `192.168.50.1`, outbound HTTPS, and working DNS.
 - The VM is reachable through the local SSH alias `steading`.
-- The VM hostname resolves as `steading-cluster.mshome.net` from Windows.
+- The Windows hosts file maps `steading-cluster.steading.test` and the local
+  application hostnames to `192.168.50.10`.
+- Windows uses `192.168.50.1/24` on the internal switch, owns `SteadingNAT` for
+  `192.168.50.0/24`, and allows only the VM address to reach Ollama on TCP
+  `11434`.
 - The `main` branch contains `platform/clusters/local` and the desired cluster
   resources.
 - A fine-grained GitHub PAT is available for the interactive Flux bootstrap.
@@ -68,13 +73,7 @@ sudo bash /tmp/steading-bootstrap/verify.sh
 Supported overrides describe a different cluster; they do not contain secrets:
 
 ```bash
-sudo env \
-  CLUSTER_HOSTNAME=steading-cluster.mshome.net \
-  GITHUB_OWNER=oxface \
-  GITHUB_REPOSITORY=steading \
-  GIT_BRANCH=main \
-  FLUX_PATH=platform/clusters/local \
-  bash /tmp/steading-bootstrap/bootstrap.sh
+sudo env CLUSTER_HOSTNAME=steading-cluster.steading.test CLUSTER_NODE_IP=192.168.50.10 GITHUB_OWNER=oxface GITHUB_REPOSITORY=steading GIT_BRANCH=main FLUX_PATH=platform/clusters/local bash /tmp/steading-bootstrap/bootstrap.sh
 ```
 
 ## Ownership boundary

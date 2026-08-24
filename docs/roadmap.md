@@ -31,8 +31,9 @@ The local topology is deliberately small:
 Windows 11 host
 ├── IDE, Git, browser
 ├── Ollama + physical GPU
-└── Hyper-V Default Switch (managed internal/NAT)
+└── Hyper-V `Steading` internal/NAT (`192.168.50.1/24`)
     └── Ubuntu VM (on-demand)
+        ├── static node address `192.168.50.10`
         └── single-node k3s
             ├── Traefik Gateway API
             ├── Flux; SOPS when the first Git-managed secret appears
@@ -42,7 +43,7 @@ Windows 11 host
             └── Seneschal
 ```
 
-WSL remains useful as a development shell but is not the cluster host. Hyper-V manages the VM address, NAT, and local DNS; Windows uses `steading-cluster.mshome.net` instead of treating the DHCP address as a contract. The unrestricted k3s kubeconfig remains root-only on the VM: SSH is the bootstrap and break-glass path, and routine changes move to Git after Flux is authoritative. A custom internal/NAT network becomes necessary only if the managed endpoint or the later VM-to-Windows Ollama path proves unreliable.
+WSL remains useful as a development shell but is not the cluster host. The dedicated Hyper-V `Steading` internal switch uses Windows `192.168.50.1` as its NAT gateway and Ollama endpoint and gives the Ubuntu VM the static address `192.168.50.10`. Windows hosts-file aliases under `steading.test` provide local application and SSH names. This replaced the Default Switch after a Windows restart changed its subnet while a saved VM retained k3s's old advertised address, leaving the Kubernetes API Service endpoint stale. The unrestricted k3s kubeconfig remains root-only on the VM: SSH is the bootstrap and break-glass path, and routine changes move to Git after Flux is authoritative.
 
 ## Delivery stages
 
@@ -52,7 +53,7 @@ Stages are ordered learning and product increments, not deadlines. Each ends wit
 |---|---|---|
 | 0. Minimal local Seneschal | A truthful, build-clean shell with no speculative product infrastructure | Correct Seneschal branding; the SPA shows live API health through TanStack Query; web and API checks pass; no database, auth, agent, MCP, or Ollama integration |
 | 1. Containerized shell | The same vertical slice runs in production-shaped containers | Separate production web and API images build; a local container smoke test proves browser to web to API health |
-| 2. Thin Steading and GitOps control plane | A working cluster whose first platform resources arrive through Git | Ubuntu Hyper-V VM with a stable Windows-to-VM hostname over managed internal/NAT; single-node k3s with root-local administration over SSH; Traefik Gateway API enabled; Flux bootstrapped with a read-only deploy key; the local networking namespace and Gateway reconciled from Git |
+| 2. Thin Steading and GitOps control plane | A working cluster whose first platform resources arrive through Git | Ubuntu Hyper-V VM with stable addresses on a dedicated internal/NAT network; single-node k3s with root-local administration over SSH; Traefik Gateway API enabled; Flux bootstrapped with a read-only deploy key; the local networking namespace and Gateway reconciled from Git |
 | 3. First application delivery and useful workload | Production-shaped images and workloads flow through CI and Flux | GitHub Actions publishes images to GHCR; Seneschal `Deployment`, `Service`, and `HTTPRoute` are reconciled by Flux; browser to web to API health succeeds inside k3s; OpenWebUI reaches Windows-hosted Ollama; SOPS + age is introduced when the first real Git-managed secret appears |
 | 4. Read-only Seneschal | The first product-shaped release observes a real environment | Integration catalogue covers OpenWebUI, Flux, and relevant cluster services; read-only dashboard; internal `seneschal-tools` MCP server with Kubernetes and Flux adapters; eval cases precede the first raw model/tool call and LangGraph investigation; PostgreSQL/PostgresSaver is added when durable conversation or graph behavior needs it; read-only RBAC and audit trail |
 | 5. Observable Seneschal | Investigations can use and explain telemetry | OTel Collector plus VictoriaMetrics, VictoriaLogs, Grafana, and Tempo; Seneschal integration cards and typed query tools; correlated agent and platform traces/logs/metrics |
