@@ -63,6 +63,8 @@ Stage 2 still includes a visible Kubernetes learning rep: owned manifests are wr
 
 After Seneschal's initial Stage 3 deployment is stable, use its two API replicas for bounded learning exercises in Service load distribution and a native blue-green rollout with two Deployments and an explicit Service-selector cutover. These are follow-up experiments, not requirements for the first deployment and not a reason to introduce a rollout controller yet.
 
+After those manual delivery exercises, add version-update automation as the final Stage 3 delivery follow-up. Keep Git as the explicit desired-state record and keep deployed references immutable: do not deploy first-party workloads with a mutable `latest` tag. Evaluate Renovate pull requests for pinned third-party Helm chart versions, and compare Flux image automation with a CI-created pull request for promoting newly published Seneschal images. The local environment may auto-promote an eligible immutable tag or digest; production must retain an explicit, reviewable promotion policy. This decision includes how updates are tested, grouped, approved, rolled back, and promoted between environments—not merely how a newer version is discovered.
+
 ## Expansion rules
 
 - Namespace per app; shared cluster services live in platform namespaces.
