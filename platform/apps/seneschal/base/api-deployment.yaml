@@ -12,8 +12,6 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: seneschal-api
-        app.kubernetes.io/component: api
-        deployment-slot: blue
     spec:
       containers:
         - name: api
